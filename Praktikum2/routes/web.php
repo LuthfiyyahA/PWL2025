@@ -34,7 +34,7 @@ Route::get('/about', function () {
     return "2341720148";
 });
 
-Route::get('/user/{name}', function ($name) {
+Route::get('/user/{name?}', function ($name=john) {
     return 'Nama saya '.$name;
 });
 
