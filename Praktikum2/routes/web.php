@@ -37,3 +37,11 @@ Route::get('/about', function () {
 Route::get('/user/{name}', function ($name) {
     return 'Nama saya '.$name;
 });
+
+Route::get('/posts/{post}/comments/{comment}', function ($postID, $commentID) {
+    return 'Pos ke-'.$postID." Komentar ke-: ".$commentID;
+});
+
+Route::get('/articles/{id}', function ($id) {
+    return 'Halaman Artikel dengan ID '.$id;
+});
