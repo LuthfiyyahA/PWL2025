@@ -1,0 +1,47 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class PenjualanSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $data = [
+            [
+                'penjualan_id' => 1,
+                'user_id' => 1,
+                'pembeli' => 'Andi',
+                'penjualan_kode' => 'TRX001',
+                'penjualan_tanggal' => '2025-03-10 10:32:54',
+                'created_at' => now(),
+                'updated_at' => null,
+            ],
+            [
+                'penjualan_id' => 2,
+                'user_id' => 2,
+                'pembeli' => 'Budi',
+                'penjualan_kode' => 'TRX002',
+                'penjualan_tanggal' => '2025-03-07 15:05:20',
+                'created_at' => now(),
+                'updated_at' => null,
+            ],
+            [
+                'penjualan_id' => 3,
+                'user_id' => 3,
+                'pembeli' => 'Citra',
+                'penjualan_kode' => 'TRX003',
+                'penjualan_tanggal' => '2025-03-01 21:37:29',
+                'created_at' => now(),
+                'updated_at' => null,
+            ],
+        ];
+        DB::table('t_penjualan')->insert($data);
+    }
+}
