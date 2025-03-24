@@ -23,7 +23,7 @@ class UserController extends Controller
         $activeMenu = 'user';
         $level = LevelModel::all();
 
-        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
 
     public function list(Request $request)
@@ -31,7 +31,7 @@ class UserController extends Controller
         $users = UserModel::with('level')->select('user_id', 'username', 'nama', 'level_id');
 
         if ($request->level_id) {
-            $users->where('level_id', $request->level_id); // Filter kalau ada level dipilih
+            $users->where('level_id', $request->level_id);
         }
 
         return DataTables::of($users)
@@ -60,10 +60,10 @@ class UserController extends Controller
             'title' => 'Tambah user baru'
         ];
 
-        $levels = LevelModel::all();
+        $level = LevelModel::all();
         $activeMenu = 'user';
 
-        return view('user.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level'=>$levels, 'activeMenu' => $activeMenu, 'levels' => $levels]);
+        return view('user.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level'=>$level, 'activeMenu' => $activeMenu]);
     }
 
     public function store(Request $request)
@@ -106,7 +106,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = UserModel::find($id);
-        $levels = LevelModel::all();
+        $level = LevelModel::all();
 
         $breadcrumb = (object) [
             'title' => 'Edit User',
@@ -119,7 +119,7 @@ class UserController extends Controller
 
         $activeMenu = 'user';
 
-        return view('user.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'level' => $levels, 'activeMenu' => $activeMenu]);
+        return view('user.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
 
     public function update(Request $request, string $id)
