@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\Level;
+use App\Models\LevelModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +23,7 @@ class LevelController extends Controller
         $activeMenu = 'level';
 
         if ($request->ajax()) {
-            $data = Level::select(['level_id', 'level_kode', 'level_nama']);
+            $data = LevelModel::select(['level_id', 'level_kode', 'level_nama']);
             return DataTables::of($data)
                 ->addColumn('aksi', function ($row) {
                     return '<a href="'.url('level/'.$row->level_id.'/edit').'" class="btn btn-warning btn-sm">Edit</a>
