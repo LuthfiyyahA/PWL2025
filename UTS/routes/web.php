@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\UkmController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,27 +17,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [WelcomeController::class, 'index']);
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::post('/list', [UserController::class, 'list']);
+    Route::get('/create', [UserController::class, 'create']);
+    Route::post('/', [UserController::class, 'store']);
+    Route::get('/{id}', [UserController::class, 'show']);
+    Route::get('/{id}/edit', [UserController::class, 'edit']);
+    Route::put('/{id}', [UserController::class, 'update']);
+    Route::delete('/{id}', [UserController::class, 'destroy']);
 });
 
-Route::get('/hello', function () {
-    return 'Hello World';
-});
-
-Route::get('/world', function () {
-    return 'World';
-});
-
-
-Route::get('/welcome', function () {
-    return "Selamat Datang";
-});
-
-Route::get('/about', function () {
-    return "2341720148";
-});
-
-Route::get('/user/{name}', function ($name) {
-    return 'Nama saya '.$name;
-});
+Route::resource('/level', LevelController::class);
+Route::resource('/kategori', KategoriController::class);
+Route::resource('/supplier', SupplierController::class);
+Route::resource('/barang', BarangController::class);
