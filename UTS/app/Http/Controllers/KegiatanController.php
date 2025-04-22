@@ -81,7 +81,7 @@ class KegiatanController extends Controller
             'ukm_id' => $request->ukm_id
         ]);
 
-        return redirect('/kegiatan')->with('success', 'Data kegiatan UKM berhasil disimpan');
+        return redirect('kegiatan.index')->with('success', 'Data kegiatan UKM berhasil disimpan');
     }
 
     public function show(string $id)
@@ -135,22 +135,27 @@ class KegiatanController extends Controller
             'ukm_id' => $request->ukm_id
         ]);
 
-        return redirect('/kegiatan')->with('success', 'Data kegiatan berhasil diubah');
+        // Jika request AJAX, kembalikan respon JSON
+        if ($request->ajax()) {
+            return response()->json(['success' => 'Data UKM berhasil diubah']);
+        }
+
+        return redirect('kegiatan.index')->with('success', 'Data kegiatan berhasil diubah');
     }
 
     public function destroy(string $id)
     {
         $check = KegiatanModel::find($id);
         if (!$check) {
-            return redirect('/kegiatan')->with('error', 'Data kegiatan tidak ditemukan');
+            return redirect('kegiatan.index')->with('error', 'Data kegiatan tidak ditemukan');
         }
 
         try {
             KegiatanModel::destroy($id);
 
-            return redirect('/kegiatan')->with('success', 'Data kegiatan berhasil dihapus');
+            return redirect('kegiatan.index')->with('success', 'Data kegiatan berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('/kegiatan')->with('error', 'Data kegiatan tidak bisa dihapus karena masih terdapat data yang terkait dengan data ini');
+            return redirect('kegiatan.index')->with('error', 'Data kegiatan tidak bisa dihapus karena masih terdapat data yang terkait dengan data ini');
         }
     }
 }

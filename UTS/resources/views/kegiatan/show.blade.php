@@ -1,18 +1,25 @@
-@extends('layouts.template')
+@extends('layouts.template') <!-- Meng-extend template utama -->
 
-@section('content')
+@section('content') <!-- Konten utama halaman -->
+
+    <!-- Kartu tampilan utama -->
     <div class="card card-outline card-primary">
         <div class="card-header">
+            <!-- Judul halaman -->
             <h3 class="card-title">{{ $page->title }}</h3>
-            <div class="card-tools"></div>
+            <div class="card-tools"></div> <!-- Tombol untuk menambah kegiatan UKM -->
         </div>
+
         <div class="card-body">
+            <!-- Mengecek apakah data UKM kosong -->
             @empty($kegiatan_ukm)
+                <!-- Menampilkan pesan kesalahan jika data tidak ditemukan -->
                 <div class="alert alert-danger alert-dismissible">
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5>
                     Data yang Anda cari tidak ditemukan.
                 </div>
             @else
+                <!-- Menampilkan data detail UKM dalam bentuk tabel -->
                 <table class="table table-bordered table-striped table-hover table-sm">
                     <tr>
                         <th>ID</th>
@@ -32,13 +39,15 @@
                     </tr>
                 </table>
             @endempty
+
+            <!-- Tombol untuk kembali ke halaman sebelumnya -->
             <a href="{{ url('kegiatan') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
         </div>
     </div>
-@endsection
+@endsection <!-- Akhir konten utama halaman -->
 
-@push('css')
+@push('css') <!-- Section untuk menambahkan CSS tambahan jika diperlukan -->
 @endpush
 
-@push('js')
+@push('js') <!-- Section untuk menambahkan JavaScript tambahan jika diperlukan -->
 @endpush

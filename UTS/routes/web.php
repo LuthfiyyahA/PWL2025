@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class, 'index']);
 
 Route::group(['prefix' => 'ukm'], function () {
-    Route::get('/', [UkmController::class, 'index']);           //Menampilkan halaman awal UKM
+    Route::get('/', [UkmController::class, 'index'])->name('ukm.index');           //Menampilkan halaman awal UKM
     Route::post('/list', [UkmController::class, 'list']);       //Menampilkan data UKM dalam bentuk json untuk datatables
     Route::get('/create', [UkmController::class, 'create']);    //Menampilkan halaman form tambah UKM
     Route::post('/', [UkmController::class, 'store']);          //Menyimpan data UKM baru

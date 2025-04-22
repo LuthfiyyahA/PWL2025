@@ -1,14 +1,16 @@
-@extends('layouts.template')
+@extends('layouts.template') <!-- Menggunakan layout utama dari folder layouts/template.blade.php -->
 
 @section('content')
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title">{{ $page->title }}</h3>
+            <h3 class="card-title">{{ $page->title }}</h3> <!-- Menampilkan judul halaman dari variabel $page -->
             <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            <form action="{{ url('kegiatan') }}" method="POST">
-                @csrf
+            <form action="{{ url('kegiatan') }}" method="POST"> <!-- Form untuk menyimpan data UKM baru -->
+                @csrf <!-- Token CSRF untuk keamanan form -->
+
+                <!-- Input untuk Nama UKM -->
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Nama UKM</label>
                     <div class="col-11">
@@ -18,29 +20,35 @@
                                 <option value="{{ $item->ukm_id }}">{{ $item->nama }}</option>
                             @endforeach
                         </select>
-                        @error('ukm_id')
+                        @error('ukm_id') <!-- Menampilkan pesan error jika validasi gagal -->
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
+
+                <!-- Input untuk Nama Kegiatan -->
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Nama Kegiatan</label>
                     <div class="col-11">
                         <input type="text" class="form-control" id="nama_kegiatan" name="nama_kegiatan">
-                        @error('nama_kegiatan')
+                        @error('nama_kegiatan') <!-- Menampilkan pesan error jika validasi gagal -->
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
+
+                <!-- Input untuk Tanggal Kegiatan -->
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Deskripsi Kegiatan</label>
                     <div class="col-11">
                         <textarea name="deskripsi_kegiatan" id="deskripsi_kegiatan" class="form-control"></textarea>
-                        @error('deskripsi_kegiatan')
+                        @error('deskripsi_kegiatan') <!-- Menampilkan pesan error jika validasi gagal -->
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
+
+                <!-- Tombol Simpan dan Kembali -->
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label"></label>
                     <div class="col-11">
@@ -53,8 +61,18 @@
     </div>
 @endsection
 
-@push('css')
+@push('css') <!-- Section untuk menambahkan CSS tambahan jika diperlukan -->
 @endpush
 
-@push('js')
+@push('js')<!-- Section untuk menambahkan JavaScript tambahan -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if ($errors->any()) //Jika ada error validasi, tampilkan SweetAlert
+        Swal.fire({
+            icon: 'error',
+            title: 'Data tidak lengkap!',
+            html: `{!! implode('<br>', $errors->all()) !!}`
+        });
+    @endif
+</script>
 @endpush
